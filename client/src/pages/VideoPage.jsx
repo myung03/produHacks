@@ -12,6 +12,15 @@ const VideoPage = () => {
     setPreview(imageSrc);
   };
 
+  const startRecording = () => {
+    webcamRef.current.startRecording();
+  };
+
+  const stopRecording = () => {
+    webcamRef.current.stopRecording();
+    setPreview(webcamRef.current.getRecordedBlob());
+  };
+
   return (
     <div className="App">
       {!preview ? (
@@ -24,6 +33,10 @@ const VideoPage = () => {
           />
           <button
             className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-4 bg-white rounded-full shadow-lg focus:outline-none"
+            onMouseDown={startRecording}
+            onMouseUp={stopRecording}
+            onTouchStart={startRecording}
+            onTouchEnd={stopRecording}
             onClick={capture}
           >
             📸
@@ -44,4 +57,4 @@ const VideoPage = () => {
   );
 };
 
-export default VidePage;
+export default VideoPage;

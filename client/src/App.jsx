@@ -1,14 +1,13 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import Home from "./pages/Home";
+import VideoPage from "./pages/VideoPage";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <div className="App">
-      <Home />
+      <VideoPage />
     </div>
   );
 }
