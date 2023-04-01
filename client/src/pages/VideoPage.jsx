@@ -1,24 +1,46 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Webcam from "react-webcam";
 import "tailwindcss/tailwind.css";
 
 const VideoPage = () => {
   const [preview, setPreview] = useState(null);
+  const [recording, setRecording] = useState(false);
+  const [mediaRecorder, setMediaRecorder] = useState(null);
+  const [chunks, setChunks] = useState([]);
   const webcamRef = useRef(null);
 
-  const capture = () => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    console.log(imageSrc);
-    setPreview(imageSrc);
-  };
+  useEffect(() => {
+    if (mediaRecorder) {
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) {
+          setChunks((prev) => [...prev, e.data]);
+        }
+      };
+
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(chunks, { type: "video/webm" });
+        const url = URL.createObjectURL(blob);
+        setPreview(url);
+        setChunks([]);
+      };
+    }
+  }, [mediaRecorder]);
 
   const startRecording = () => {
-    webcamRef.current.startRecording();
+    console.log("Started recording");
+    setRecording(true);
+    const stream = webcamRef.current.stream;
+    const recorder = new MediaRecorder(stream);
+    setMediaRecorder(recorder);
+    recorder.start();
   };
 
   const stopRecording = () => {
-    webcamRef.current.stopRecording();
-    setPreview(webcamRef.current.getRecordedBlob());
+    console.log("Stopping recording");
+    setRecording(false);
+    if (mediaRecorder) {
+      mediaRecorder.stop();
+    }
   };
 
   return (
@@ -33,18 +55,14 @@ const VideoPage = () => {
           />
           <button
             className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-4 bg-white rounded-full shadow-lg focus:outline-none"
-            onMouseDown={startRecording}
-            onMouseUp={stopRecording}
-            onTouchStart={startRecording}
-            onTouchEnd={stopRecording}
-            onClick={capture}
+            onClick={recording ? stopRecording : startRecording}
           >
             📸
           </button>
         </div>
       ) : (
         <div className="flex flex-col h-screen">
-          <img src={preview} className="h-full w-full object-cover" />
+          <video src={preview} className="h-full w-full object-cover" muted />
           <button
             className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-4 bg-white rounded-full shadow-lg focus:outline-none"
             onClick={() => setPreview(null)}
