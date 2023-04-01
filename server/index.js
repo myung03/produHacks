@@ -39,3 +39,21 @@ app.post("/register", async (req, res) => {
     res.status(400).json(e);
   }
 });
+
+//get user by username from data base
+
+// Get user by username
+app.get("/users/:username", async (req, res) => {
+  const { username } = req.params;
+  try {
+    const userDoc = await User.findOne({ username });
+    if (!userDoc) {
+      res.status(404).json({ message: "User not found" });
+    } else {
+      res.json(userDoc);
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e);
+  }
+});
