@@ -1,16 +1,47 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import Camera from "./Camera";
+import React, { useState, useRef } from "react";
+import Webcam from "react-webcam";
+import "tailwindcss/tailwind.css";
 
-function App() {
-  const [count, setCount] = useState(0);
+const App = () => {
+  const [preview, setPreview] = useState(null);
+  const webcamRef = useRef(null);
+
+  const capture = () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    console.log(imageSrc);
+    setPreview(imageSrc);
+  };
 
   return (
     <div className="App">
-      <Camera />
+      {!preview ? (
+        <div className="flex flex-col h-screen">
+          <Webcam
+            audio={false}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            className="h-full w-full object-cover"
+          />
+          <button
+            className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-4 bg-white rounded-full shadow-lg focus:outline-none"
+            onClick={capture}
+          >
+            📸
+          </button>
+        </div>
+      ) : (
+        <div className="flex flex-col h-screen">
+          <img src={preview} className="h-full w-full object-cover" />
+          <button
+            className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-4 bg-white rounded-full shadow-lg focus:outline-none"
+            onClick={() => setPreview(null)}
+          >
+            ♻️
+          </button>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default App;
