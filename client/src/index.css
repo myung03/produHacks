@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -36,6 +38,9 @@
   .text-gradient {
     background: rgb(130,121,121);
 background: linear-gradient(90deg, rgba(130,121,121,1) 0%, rgba(128,166,213,1) 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
   }
 
   .dot-gradient {
@@ -43,3 +48,9 @@ background: linear-gradient(90deg, rgba(130,121,121,1) 0%, rgba(128,166,213,1) 1
 background: linear-gradient(90deg, rgba(189,222,240,1) 0%, rgba(153,204,234,1) 100%);
   }
 
+  .bottom-border {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color:black;
+
+  }
