@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import FriendListItem from "../components/FriendListItem";
 
 //Feel free to change this
-const Skeleton = () => (
-  <div className="animate-pulse space-y-2">
-    <div className="h-6 bg-gray-400 rounded"></div>
-    <div className="h-6 bg-gray-400 rounded"></div>
-    <div className="h-6 bg-gray-400 rounded"></div>
-    <div className="h-6 bg-gray-400 rounded"></div>
-  </div>
+const Skeleton = ({ index }) => (
+  <li key={index} className="flex items-center py-4 px-6 animate-pulse">
+    <div className="h-10 w-10 bg-gray-300 rounded-full"></div>
+    <div className="ml-3">
+      <div className="h-4 bg-gray-300 w-32 mb-1 rounded"></div>
+      <div className="h-4 bg-gray-300 w-48 rounded"></div>
+    </div>
+  </li>
 );
 
 export default function FriendsPage() {
@@ -47,15 +48,7 @@ export default function FriendsPage() {
       <ul>
         {loading
           ? // Show skeletons while data is being fetched
-            Array.from({ length: 6 }).map((_, i) => (
-              <li key={i} className="flex items-center py-4 px-6 animate-pulse">
-                <div className="h-10 w-10 bg-gray-300 rounded-full"></div>
-                <div className="ml-3">
-                  <div className="h-4 bg-gray-300 w-32 mb-1 rounded"></div>
-                  <div className="h-4 bg-gray-300 w-48 rounded"></div>
-                </div>
-              </li>
-            ))
+            Array.from({ length: 6 }).map((_, i) => <Skeleton index={i} />)
           : // Show friends once data is fetched
             friends.map((friend) => (
               <FriendListItem key={friend} name={friend} />
