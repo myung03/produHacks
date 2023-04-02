@@ -7,7 +7,31 @@ const PostVideoPage = (media) => {
     setMedia(event.target.value);
   };
 
-  const createPost = (event) => {};
+  const createPost = (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("media", media);
+    formData.append("caption", caption);
+    formData.append("user", user._id);
+
+    fetch("/api/posts", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to create post");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Post created:", data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <div>

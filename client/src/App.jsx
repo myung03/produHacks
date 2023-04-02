@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import Home from "./pages/Home";
 import RegisterPage from "./pages/RegisterPage";
 import Post from "./components/Post";
+import LoginPage from "./pages/LoginPage";
+import Header from "./components/Header";
+export const LoginContext = createContext();
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [loginState, setLoginState] = useState("Login");
 
-  return <div className="App"></div>;
+  return (
+    <LoginContext.Provider value={{ loginState, setLoginState }}>
+      <Header />
+      <LoginPage />
+    </LoginContext.Provider>
+  );
 }
 
 export default App;

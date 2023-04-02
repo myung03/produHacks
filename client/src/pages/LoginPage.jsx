@@ -1,30 +1,57 @@
-import React from 'react'
+import React from "react";
+import { useState, useContext } from "react";
+import Header from "../components/Header";
+import { LoginContext } from "../App";
 
-export default function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+export default function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [userInfo, setUserInfo] = useState(null);
+  const { setLoginState } = useContext(LoginContext);
 
+  async function login(ev) {
+    ev.preventDefault();
+    const response = await fetch("http://localhost:4500/login", {
+      method: "POST",
+      body: JSON.stringify({ username, password }),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+    if (response.ok) {
+      response.json().then((userInfo) => {
+        setUserInfo(userInfo);
+        setLoginState(userInfo.username);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // handle form submission here
-  };
+        alert("successful login");
+      });
+    } else {
+      alert("wrong credentials");
+    }
+  }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={handleUsernameChange} />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input type="password" value={password} onChange={handlePasswordChange} />
-      </label>
-      <br />
-      <button type="submit">Login</button>
-    </form>
+    <div>
+      <form onSubmit={login}>
+        <label>
+          Username:
+          <input
+            type="text"
+            value={username}
+            onChange={(ev) => setUsername(ev.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={(ev) => setPassword(ev.target.value)}
+          />
+        </label>
+        <br />
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 }
-
-

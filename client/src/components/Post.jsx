@@ -14,6 +14,10 @@ function Post(media, comments) {
     setCommentInput("");
   };
 
+  const updateComments = () => {
+    comments.map((comment, index) => <div key={index}>{comment}</div>);
+  };
+
   return (
     <div>
       <video src={videoUrl} controls />
@@ -27,9 +31,7 @@ function Post(media, comments) {
           />
           <button type="submit">Comment</button>
         </form>
-        {comments.map((comment, index) => (
-          <div key={index}>{comment}</div>
-        ))}
+        {updateComments}
       </div>
     </div>
   );
