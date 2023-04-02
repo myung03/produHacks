@@ -60,7 +60,7 @@ export default function Camera() {
   };
 
   const handleVideoPreview = useCallback(() => {
-    navigate("/video-preview", { state: { recordedChunks: recordedChunks } });
+    navigate("/preview", { state: { recordedChunks: recordedChunks } });
   }, [navigate, recordedChunks]);
 
   return (

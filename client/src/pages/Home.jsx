@@ -10,7 +10,7 @@ const Home = () => {
     // Replace recordedChunks with an appropriate value, if needed
     const recordedChunks = [];
 
-    navigate("/camera", { state: { recordedChunks: recordedChunks } });
+    navigate("/record", { state: { recordedChunks: recordedChunks } });
   }, [navigate]);
 
   const addfriend = async (event) => {
