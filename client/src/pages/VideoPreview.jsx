@@ -9,7 +9,9 @@ export default function VideoPreview() {
 
   const handleUpload = async () => {
     const blob = new Blob(recordedChunks, { type: "video/webm" });
-    const storageRef = ref(storage, "videos/your-video-filename.webm");
+    const now = Date.now();
+    const fileName = `video-${now}.webm`;
+    const storageRef = ref(storage, `videos/${fileName}`);
     await uploadBytes(storageRef, blob);
     console.log("Video uploaded");
   };

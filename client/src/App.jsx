@@ -7,23 +7,28 @@ export const LoginContext = createContext();
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Camera from "./pages/Camera";
 import VideoPreview from "./pages/VideoPreview";
+import WatchVideo from "./pages/WatchVideo";
 
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <Home />,
+    element: <LoginPage />,
   },
   {
-    path: "/camera",
+    path: "/record",
     element: <Camera />,
   },
   {
-    path: "/video-preview",
+    path: "/preview",
     element: <VideoPreview />,
   },
   {
     path: "/",
-    element: <LoginPage />,
+    element: <Home />,
+  },
+  {
+    path: "/watch",
+    element: <WatchVideo />,
   },
 ]);
 
