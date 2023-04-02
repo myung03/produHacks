@@ -65,6 +65,9 @@ export default function Camera() {
 
   return (
     <div className="flex flex-col h-screen">
+      <button onClick={() => navigate("/home")}>
+        <p>Back</p>
+      </button>
       <Webcam
         audio={false}
         mirrored={true}
