@@ -3,10 +3,12 @@ import { useLocation } from "react-router-dom";
 import { storage } from "../firebase";
 import { ref, uploadBytes } from "firebase/storage";
 import { LoginContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 export default function VideoPreview() {
   const location = useLocation();
   const recordedChunks = location.state.recordedChunks;
+  const navigate = useNavigate();
 
   const { loginState } = useContext(LoginContext);
 
@@ -31,6 +33,7 @@ export default function VideoPreview() {
     });
     if (response.status === 200) {
       alert("Post successfuly added");
+      navigate("/friendslist");
     } else {
       alert("Post not added");
     }
@@ -48,6 +51,7 @@ export default function VideoPreview() {
   return (
     <div>
       <video
+        className="h-full w-full object-cover"
         src={URL.createObjectURL(
           new Blob(recordedChunks, { type: "video/webm" })
         )}

@@ -3,8 +3,10 @@ import { heroimg } from "../../assets/index";
 import { motion, AnimatePresence } from "framer-motion";
 import { slideAnimation } from "../constants";
 import style from "../style";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <AnimatePresence>
       <div
@@ -42,12 +44,14 @@ const Hero = () => {
         </motion.div>
         <div className={`${style.flexCenter} gap-5 pb-5`}>
           <button
-            className={`${style.paragraph}  text-white bg-[#9AD1F0] mt-[2rem] w-[237px] h-[72px] cursor-pointer rounded-md mx-auto `}
+            className={`${style.paragraph}  text-white bg-[#9AD1F0] mt-[2rem] w-[237px] h-[72px] cursor-pointer rounded-md mx-auto`}
+            onClick={() => navigate("/login")}
           >
             Login
           </button>
           <button
             className={`${style.paragraph} border-solid border-[#9AD1F0] text-[#9AD1F0] border-[2px] mt-[2rem] w-[237px] h-[72px] cursor-pointer rounded-md mx-auto `}
+            onClick={() => navigate("/register")}
           >
             Register
           </button>
