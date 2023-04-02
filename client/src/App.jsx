@@ -15,7 +15,7 @@ import FriendsPage from "./pages/FriendsPage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <FriendsPage />,
+    element: <HeroPage />,
   }, {
     path: "/home",
     element: <Home />,
