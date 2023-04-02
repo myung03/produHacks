@@ -47,10 +47,3 @@ background-clip: text;
     background: rgb(189,222,240);
 background: linear-gradient(90deg, rgba(189,222,240,1) 0%, rgba(153,204,234,1) 100%);
   }
-
-  .bottom-border {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color:black;
-
-  }

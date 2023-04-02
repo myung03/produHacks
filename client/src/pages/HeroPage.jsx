@@ -5,8 +5,8 @@ import Hero from "../components/Hero";
 const HeroPage = () => {
   return (
     <div>
-    <NavBar></NavBar>
-    <Hero></Hero>
+    <NavBar/>
+    <Hero/>
     </div>
   )
 }
