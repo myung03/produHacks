@@ -1,16 +1,31 @@
 import { useState } from "react";
 import Home from "./pages/Home";
 
-import RegisterPage from "./pages/RegisterPage";
-import VideoPage from "./pages/VideoPage";
-import VideoRecorder from "./pages/VideoPage";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Camera from "./pages/Camera";
+import VideoPreview from "./pages/VideoPreview";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/camera",
+    element: <Camera />,
+  },
+  {
+    path: "/video-preview",
+    element: <VideoPreview />,
+  },
+]);
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <div className="App">
-      <VideoRecorder />
+      <RouterProvider router={router} />
     </div>
   );
 }

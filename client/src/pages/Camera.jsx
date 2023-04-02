@@ -1,14 +1,14 @@
 import React, { useCallback, useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Webcam from "react-webcam";
 
-export default function WebcamVideo() {
+export default function Camera() {
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [videoPreview, setVideoPreview] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleDataAvailable = useCallback(
     ({ data }) => {
@@ -62,13 +62,8 @@ export default function WebcamVideo() {
   };
 
   const handleVideoPreview = useCallback(() => {
-    history.push({
-      pathname: "/video-preview",
-      state: {
-        recordedChunks: recordedChunks,
-      },
-    });
-  }, [history, recordedChunks]);
+    navigate("/video-preview", { state: { recordedChunks: recordedChunks } });
+  }, [navigate, recordedChunks]);
 
   return (
     <div className="Container">
