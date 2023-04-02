@@ -1,78 +1,135 @@
-import React, { useState, useRef, useEffect } from "react";
-import Webcam from "react-webcam";
-import "tailwindcss/tailwind.css";
+import { useState, useRef } from "react";
 
-const VideoPage = () => {
-  const [preview, setPreview] = useState(null);
-  const [recording, setRecording] = useState(false);
-  const [mediaRecorder, setMediaRecorder] = useState(null);
-  const [chunks, setChunks] = useState([]);
-  const webcamRef = useRef(null);
+const mimeType = 'video/webm; codecs="opus,vp8"';
 
-  useEffect(() => {
-    if (mediaRecorder) {
-      mediaRecorder.ondataavailable = (e) => {
-        if (e.data.size > 0) {
-          setChunks((prev) => [...prev, e.data]);
-        }
-      };
+const VideoRecorder = () => {
+  const [permission, setPermission] = useState(false);
 
-      mediaRecorder.onstop = () => {
-        const blob = new Blob(chunks, { type: "video/webm" });
-        const url = URL.createObjectURL(blob);
-        setPreview(url);
-        setChunks([]);
-      };
+  const mediaRecorder = useRef(null);
+
+  const liveVideoFeed = useRef(null);
+
+  const [recordingStatus, setRecordingStatus] = useState("inactive");
+
+  const [stream, setStream] = useState(null);
+
+  const [recordedVideo, setRecordedVideo] = useState(null);
+
+  const [videoChunks, setVideoChunks] = useState([]);
+
+  const getCameraPermission = async () => {
+    setRecordedVideo(null);
+    //get video and audio permissions and then stream the result media stream to the videoSrc variable
+    if ("MediaRecorder" in window) {
+      try {
+        const videoConstraints = {
+          audio: false,
+          video: true,
+        };
+        const audioConstraints = { audio: true };
+
+        // create audio and video streams separately
+        const audioStream = await navigator.mediaDevices.getUserMedia(
+          audioConstraints
+        );
+        const videoStream = await navigator.mediaDevices.getUserMedia(
+          videoConstraints
+        );
+
+        setPermission(true);
+
+        //combine both audio and video streams
+
+        const combinedStream = new MediaStream([
+          ...videoStream.getVideoTracks(),
+          ...audioStream.getAudioTracks(),
+        ]);
+
+        setStream(combinedStream);
+
+        //set videostream to live feed player
+        liveVideoFeed.current.srcObject = videoStream;
+      } catch (err) {
+        alert(err.message);
+      }
+    } else {
+      alert("The MediaRecorder API is not supported in your browser.");
     }
-  }, [mediaRecorder]);
+  };
 
-  const startRecording = () => {
-    console.log("Started recording");
-    setRecording(true);
-    const stream = webcamRef.current.stream;
-    const recorder = new MediaRecorder(stream);
-    setMediaRecorder(recorder);
-    recorder.start();
+  const startRecording = async () => {
+    setRecordingStatus("recording");
+
+    const media = new MediaRecorder(stream, { mimeType });
+
+    mediaRecorder.current = media;
+
+    mediaRecorder.current.start();
+
+    let localVideoChunks = [];
+
+    mediaRecorder.current.ondataavailable = (event) => {
+      if (typeof event.data === "undefined") return;
+      if (event.data.size === 0) return;
+      localVideoChunks.push(event.data);
+    };
+
+    setVideoChunks(localVideoChunks);
   };
 
   const stopRecording = () => {
-    console.log("Stopping recording");
-    setRecording(false);
-    if (mediaRecorder) {
-      mediaRecorder.stop();
-    }
+    setPermission(false);
+    setRecordingStatus("inactive");
+    mediaRecorder.current.stop();
+
+    mediaRecorder.current.onstop = () => {
+      const videoBlob = new Blob(videoChunks, { type: mimeType });
+      const videoUrl = URL.createObjectURL(videoBlob);
+
+      setRecordedVideo(videoUrl);
+
+      setVideoChunks([]);
+    };
   };
 
   return (
-    <div className="App">
-      {!preview ? (
-        <div className="flex flex-col h-screen">
-          <Webcam
-            audio={false}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            className="h-full w-full object-cover"
-          />
-          <button
-            className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-4 bg-white rounded-full shadow-lg focus:outline-none"
-            onClick={recording ? stopRecording : startRecording}
-          >
-            📸
-          </button>
+    <div>
+      <h2>Video Recorder</h2>
+      <main>
+        <div className="video-controls">
+          {!permission ? (
+            <button onClick={getCameraPermission} type="button">
+              Get Camera
+            </button>
+          ) : null}
+          {permission && recordingStatus === "inactive" ? (
+            <button onClick={startRecording} type="button">
+              Start Recording
+            </button>
+          ) : null}
+          {recordingStatus === "recording" ? (
+            <button onClick={stopRecording} type="button">
+              Stop Recording
+            </button>
+          ) : null}
         </div>
-      ) : (
-        <div className="flex flex-col h-screen">
-          <video src={preview} className="h-full w-full object-cover" muted />
-          <button
-            className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-4 bg-white rounded-full shadow-lg focus:outline-none"
-            onClick={() => setPreview(null)}
-          >
-            ♻️
-          </button>
-        </div>
-      )}
+      </main>
+
+      <div className="video-player">
+        {!recordedVideo ? (
+          <video ref={liveVideoFeed} autoPlay className="live-player"></video>
+        ) : null}
+        {recordedVideo ? (
+          <div className="recorded-player">
+            <video className="recorded" src={recordedVideo} controls></video>
+            <a download href={recordedVideo}>
+              Download Recording
+            </a>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 };
 
-export default VideoPage;
+export default VideoRecorder;
