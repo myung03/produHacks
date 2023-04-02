@@ -148,3 +148,19 @@ app.post("/users/addfriend", async (req, res) => {
     res.status(400).json(e);
   }
 });
+
+//get all friends function
+app.get("/users/:username/friends", async (req, res) => {
+  const { username } = req.params;
+  try {
+    const userDoc = await User.findOne({ username });
+    if (!userDoc) {
+      res.status(404).json({ message: "User not found" });
+    } else {
+      res.json(userDoc.friends);
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e);
+  }
+});
