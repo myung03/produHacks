@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { storage } from "../firebase";
 import { ref, getDownloadURL } from "firebase/storage";
+import { useLocation } from "react-router-dom";
 
 export default function WatchVideo() {
-  const [videoUrl, setVideoUrl] = useState("");
+  const location = useLocation();
+  const videoLink = location.state.videoLink;
 
-  const handleLoadVideo = async () => {
-    const storageRef = ref(storage, "videos/video-1680416546539.webm");
-    const url = await getDownloadURL(storageRef);
-    setVideoUrl(url);
-  };
+  function handleLoadVideo() {
+    console.log(videoLink);
+  }
 
   return (
     <div>
-      {videoUrl ? (
+      {videoLink ? (
         <video
-          src={videoUrl}
+          src={videoLink}
           autoPlay
           controls
           width={400}
