@@ -6,7 +6,7 @@ const Navbar = () => {
     const [toggle, setToggle ] = useState(false)
   return (
 
-    <div className={`flex justify-between align-middle ${style.paddingX}`}>
+    <div className={`flex justify-between align-middle ${style.paddingX} ${style.paddingY}`}>
         <img src={hamb} alt="logo"/>
 
         <div className="sm:hidden flex flex-1 justify-end items-center">
@@ -17,7 +17,7 @@ const Navbar = () => {
           </div>
 
           <div 
-          className={`${toggle ? 'flex' : 'hidden'} p-6 dot-gradient absolute top-10 right-0 mx-4 my-2
+          className={`${toggle ? 'flex' : 'hidden'} p-6 dot-gradient absolute top-17 right-0 mx-4 my-2
           min-w-[140px] rounded sidebar`}>
               <ul className="text-white list-none flex flex-col gap-4 justify-end items-center flex-1">
             <li>Login</li>
