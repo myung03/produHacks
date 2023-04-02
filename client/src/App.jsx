@@ -11,7 +11,7 @@ import VideoPreview from "./pages/VideoPreview";
 const router = createBrowserRouter([
   {
     path: "/home",
-    element: <Home />,
+    element: <LoginPage />,
   },
   {
     path: "/camera",
@@ -23,12 +23,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <LoginPage />,
+    element: <Home />,
   },
 ]);
 
 function App() {
-  const [loginState, setLoginState] = useState("Login");
+  const [loginState, setLoginState] = useState("NicholasFong");
 
   return (
     <LoginContext.Provider value={{ loginState, setLoginState }}>
