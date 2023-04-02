@@ -1,6 +1,6 @@
 import React from "react";
-import { useState, useContext } from "react";
-import Header from "../components/Header";
+import { useState, useContext, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../App";
 
 export default function LoginPage() {
@@ -8,6 +8,11 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [userInfo, setUserInfo] = useState(null);
   const { setLoginState } = useContext(LoginContext);
+
+  const navigate = useNavigate();
+  const navigateHome = useCallback(() => {
+    navigate("/");
+  }, [navigate]);
 
   async function login(ev) {
     ev.preventDefault();
@@ -20,8 +25,8 @@ export default function LoginPage() {
       response.json().then((userInfo) => {
         setUserInfo(userInfo);
         setLoginState(userInfo.username);
-
         alert("successful login");
+        navigateHome();
       });
     } else {
       alert("wrong credentials");
