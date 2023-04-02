@@ -52,13 +52,6 @@ function App() {
           <RouterProvider router={router} />
         </div>
       </LoginContext.Provider>
-      <HeroPage></HeroPage>
-      <LoginContext.Provider value={{ loginState, setLoginState }}>
-        <div className="App">
-          <Header />
-          <RouterProvider router={router} />
-        </div>
-      </LoginContext.Provider>
     </div>
   );
 }
