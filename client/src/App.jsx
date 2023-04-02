@@ -8,8 +8,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Camera from "./pages/Camera";
 import VideoPreview from "./pages/VideoPreview";
 import WatchVideo from "./pages/WatchVideo";
+import FriendsPage from "./pages/FriendsPage";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
   {
     path: "/login",
     element: <LoginPage />,
@@ -23,12 +28,12 @@ const router = createBrowserRouter([
     element: <VideoPreview />,
   },
   {
-    path: "/",
-    element: <Home />,
-  },
-  {
     path: "/watch",
     element: <WatchVideo />,
+  },
+  {
+    path: "/friendslist",
+    element: <FriendsPage />,
   },
 ]);
 
