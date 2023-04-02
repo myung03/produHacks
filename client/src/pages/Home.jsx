@@ -5,7 +5,11 @@ import { LoginContext } from "../App";
 const Home = () => {
   const navigate = useNavigate();
   const { loginState } = useContext(LoginContext);
+<<<<<<< HEAD
   const [friendusername, setFriendusername] = useState("");
+=======
+  const [friendUsername, setFriendUsername] = useState("");
+>>>>>>> origin/main
   const tempPush = useCallback(() => {
     // Replace recordedChunks with an appropriate value, if needed
     const recordedChunks = [];
@@ -21,7 +25,14 @@ const Home = () => {
         headers: {
           "Content-Type": "application/json",
         },
+<<<<<<< HEAD
         body: JSON.stringify({ friendusername, loginState }),
+=======
+        body: JSON.stringify({
+          friendUsername: friendUsername,
+          username: loginState,
+        }),
+>>>>>>> origin/main
       });
       const data = await response.json();
       console.log(data);
@@ -37,9 +48,15 @@ const Home = () => {
           Friendname:
           <input
             type="text"
+<<<<<<< HEAD
             value={friendusername}
             onChange={(ev) => {
               setFriendusername(ev.target.value);
+=======
+            value={friendUsername}
+            onChange={(ev) => {
+              setFriendUsername(ev.target.value);
+>>>>>>> origin/main
             }}
           />
         </label>

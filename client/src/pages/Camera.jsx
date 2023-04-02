@@ -56,8 +56,6 @@ export default function Camera() {
   }, [recordedChunks]);
 
   const videoConstraints = {
-    width: 420,
-    height: 420,
     facingMode: "user",
   };
 
@@ -66,25 +64,66 @@ export default function Camera() {
   }, [navigate, recordedChunks]);
 
   return (
-    <div className="Container">
+    <div className="flex flex-col h-screen">
       <Webcam
-        height={400}
-        width={400}
         audio={false}
         mirrored={true}
         ref={webcamRef}
         videoConstraints={videoConstraints}
+        className="h-full w-full object-cover"
       />
       {capturing ? (
-        <button onClick={handleStopCaptureClick}>Stop Capture</button>
+        <button
+          className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-4 bg-white rounded-full shadow-lg focus:outline-none"
+          onClick={handleStopCaptureClick}
+        >
+          🔴
+        </button>
       ) : (
-        <button onClick={handleStartCaptureClick}>Start Capture</button>
+        <button
+          className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-4 bg-white rounded-full shadow-lg focus:outline-none"
+          onClick={handleStartCaptureClick}
+        >
+          📸
+        </button>
       )}
       {recordedChunks.length > 0 && (
-        <button onClick={handleDownload}>Download</button>
+        <button
+          style={{
+            position: "absolute",
+            bottom: "10%",
+            right: "50%",
+            transform: "translate(50%, 0)",
+            padding: "10px 20px",
+            borderRadius: "9999px",
+            background: "#fff",
+            border: "none",
+            color: "#000",
+            fontWeight: "bold",
+          }}
+          onClick={handleDownload}
+        >
+          Download
+        </button>
       )}
       {videoPreview && (
-        <button onClick={handleVideoPreview}>Preview Video</button>
+        <button
+          style={{
+            position: "absolute",
+            bottom: "5%",
+            left: "50%",
+            transform: "translate(-50%, 0)",
+            padding: "10px 20px",
+            borderRadius: "9999px",
+            background: "#fff",
+            border: "none",
+            color: "#000",
+            fontWeight: "bold",
+          }}
+          onClick={handleVideoPreview}
+        >
+          Preview Video
+        </button>
       )}
     </div>
   );

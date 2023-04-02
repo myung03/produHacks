@@ -10,7 +10,11 @@ import VideoPreview from "./pages/VideoPreview";
 
 const router = createBrowserRouter([
   {
+<<<<<<< HEAD
     path: "/login",
+=======
+    path: "/home",
+>>>>>>> origin/main
     element: <LoginPage />,
   },
   {

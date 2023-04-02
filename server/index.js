@@ -3,9 +3,19 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./Schema/User");
 const Posts = require("./Schema/Posts");
+<<<<<<< HEAD
 const PORT = process.env.PORT | 5000;
+=======
+const PORT = process.env.PORT || 5000;
+>>>>>>> origin/main
 const app = express();
 app.use(express.json());
+
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 //IMPORTANT INFO:
 // mongodb password: Produhacks2023
@@ -31,6 +41,10 @@ mongoose
 
 //Port checker
 app.listen(PORT, () => console.log(`Listening at ${PORT}`));
+
+app.get("/", (req, res) => {
+  res.send("Hello, world!");
+});
 
 //Register User Functinality creates user, name, password, with no friends
 app.post("/register", async (req, res) => {
