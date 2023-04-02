@@ -17,7 +17,7 @@ const Navbar = () => {
           </div>
 
           <div 
-          className={`${toggle ? 'flex' : 'hidden'} p-6 dot-gradient absolute top-17 right-0 mx-4 my-2
+          className={`${toggle ? 'flex' : 'hidden'} p-6 dot-gradient absolute top-14 right-0 mx-4 my-2
           min-w-[140px] rounded sidebar`}>
               <ul className="text-white list-none flex flex-col gap-4 justify-end items-center flex-1">
             <li>Login</li>
