@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import Home from "./pages/Home";
+import LoginPage from "./pages/LoginPage";
+import Header from "./components/Header";
+export const LoginContext = createContext();
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Camera from "./pages/Camera";
@@ -7,7 +10,7 @@ import VideoPreview from "./pages/VideoPreview";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/home",
     element: <Home />,
   },
   {
@@ -18,15 +21,22 @@ const router = createBrowserRouter([
     path: "/video-preview",
     element: <VideoPreview />,
   },
+  {
+    path: "/",
+    element: <LoginPage />,
+  },
 ]);
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [loginState, setLoginState] = useState("Login");
 
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
+    <LoginContext.Provider value={{ loginState, setLoginState }}>
+      <div className="App">
+        <Header />
+        <RouterProvider router={router} />
+      </div>
+    </LoginContext.Provider>
   );
 }
 
