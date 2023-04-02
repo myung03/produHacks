@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import HeroPage from "./pages/HeroPage";
 import RegisterPage from "./pages/RegisterPage";
 export const LoginContext = createContext();
+export const ExerciseContext = createContext();
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Camera from "./pages/Camera";
@@ -46,14 +47,17 @@ const router = createBrowserRouter([
 
 function App() {
   const [loginState, setLoginState] = useState("");
+  const [exerciseState, setExerciseState] = useState("");
 
   return (
     <div>
       <LoginContext.Provider value={{ loginState, setLoginState }}>
-        <div className="App">
-          <Header />
-          <RouterProvider router={router} />
-        </div>
+        <ExerciseContext.Provider value={{ exerciseState, setExerciseState }}>
+          <div className="App">
+            <Header />
+            <RouterProvider router={router} />
+          </div>
+        </ExerciseContext.Provider>
       </LoginContext.Provider>
     </div>
   );

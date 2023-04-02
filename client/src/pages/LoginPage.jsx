@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { LoginContext } from "../App";
+import { ExerciseContext, LoginContext } from "../App";
 import style from "../style";
 import { prompt, logo } from "../../assets/index";
 export default function LoginPage() {
@@ -9,6 +9,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [userInfo, setUserInfo] = useState(null);
   const { setLoginState } = useContext(LoginContext);
+  const { setExerciseState } = useContext(ExerciseContext);
 
   const navigate = useNavigate();
   const navigateHome = useCallback(() => {
@@ -47,7 +48,8 @@ export default function LoginPage() {
         }
       );
       const data = await response.json();
-      console.log(data);
+      const dailyExercise = data.dailyExercise;
+      setExerciseState(dailyExercise);
     } catch (error) {
       console.error(error);
     }

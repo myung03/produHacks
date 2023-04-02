@@ -7,6 +7,22 @@ const FriendListItem = ({ name }) => {
   const [videoLink, setVideoLink] = useState("");
   const navigate = useNavigate();
 
+  //Gets friends' daily exercise
+  async function getUser(username) {
+    try {
+      const response = await fetch(`http://localhost:4500/users/${username}`);
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        return data;
+      } else {
+        throw new Error("Unable to get user");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   //Returns link to video
   async function getPostByUsername(username) {
     try {
@@ -43,12 +59,21 @@ const FriendListItem = ({ name }) => {
 
   function handleClick() {
     //Verify that videoUrl has been populated
-    if (videoLink !== "") {
-      console.log(`Passing in ${videoLink} to watch`);
-      navigate("/watch", { state: { videoLink: videoLink } });
-    } else {
-      console.log("VideoUrl not populated");
-    }
+    getUser(name).then((data) => {
+      if (data.dailyExercise == null) {
+        alert("User has not completed their assignment for the day.");
+      } else {
+        if (videoLink !== "") {
+          alert(
+            `You are now watching ${name} attempt to ${data.dailyExercise}`
+          );
+          console.log(`Passing in ${videoLink} to watch`);
+          navigate("/watch", { state: { videoLink: videoLink } });
+        } else {
+          console.log("VideoUrl not populated");
+        }
+      }
+    });
   }
 
   return (
@@ -57,9 +82,12 @@ const FriendListItem = ({ name }) => {
         <span className="text-white text-sm font-medium">{name.charAt(0)}</span>
       </div>
       <div className="ml-3">
-        <p className="text-base font-medium text-gray-800">{name 
-        //removed [0] after name as it was returned undefined
-      }</p>
+        <p className="text-base font-medium text-gray-800">
+          {
+            name
+            //removed [0] after name as it was returned undefined
+          }
+        </p>
       </div>
       <button
         className="flex-shrink-0 ml-auto bg-transparent text-gray-600 hover:text-gray-800 border-transparent border-4 focus:outline-none focus:border-gray-800 focus:text-gray-800 rounded-full p-2 transition-colors"

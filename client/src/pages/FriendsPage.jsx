@@ -67,32 +67,38 @@ export default function FriendsPage() {
               <FriendListItem key={friend} name={friend} />
             ))} */}
         <li>
-        <FriendListItem name="Matthew"></FriendListItem>
-        <FriendListItem name="Matthew"></FriendListItem>
-        <FriendListItem name="Matthew"></FriendListItem>
-        <FriendListItem name="Matthew"></FriendListItem>
-        <FriendListItem name="Matthew"></FriendListItem>
-        <FriendListItem name="Matthew"></FriendListItem>
+          <FriendListItem name="MatthewYung"></FriendListItem>
+          <FriendListItem name="Matthew"></FriendListItem>
+          <FriendListItem name="Matthew"></FriendListItem>
+          <FriendListItem name="Matthew"></FriendListItem>
+          <FriendListItem name="Matthew"></FriendListItem>
+          <FriendListItem name="Matthew"></FriendListItem>
         </li>
       </ul>
-      <form className={` ${style.paddingX} mt-[2rem] flex flex-col`} onSubmit={addfriend}>
-            <label className={`text-center ${style.paragraph} mb-5`}>
-              Add new friends!
-              </label>
-              <div className={`${style.flexCenter} gap-5`}>
-              <input
-                type="text"
-                value={newFriend}
-                placeholder="Search Username..."
-                onChange={(ev) => {
-                  setNewFriend(ev.target.value);
-                }}
-              />
-            <button type="submit" className={`${style.paragraph} border-solid bg-[#9AD1F0] text-white border-[2px] px-[2rem] py-[0.5rem] cursor-pointer rounded-md`}>
-              Add
-              </button>
-            </div>
-          </form>
+      <form
+        className={` ${style.paddingX} mt-[2rem] flex flex-col`}
+        onSubmit={addfriend}
+      >
+        <label className={`text-center ${style.paragraph} mb-5`}>
+          Add new friends!
+        </label>
+        <div className={`${style.flexCenter} gap-5`}>
+          <input
+            type="text"
+            value={newFriend}
+            placeholder="Search Username..."
+            onChange={(ev) => {
+              setNewFriend(ev.target.value);
+            }}
+          />
+          <button
+            type="submit"
+            className={`${style.paragraph} border-solid bg-[#9AD1F0] text-white border-[2px] px-[2rem] py-[0.5rem] cursor-pointer rounded-md`}
+          >
+            Add
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
