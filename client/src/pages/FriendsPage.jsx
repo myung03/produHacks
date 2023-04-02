@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import FriendListItem from "../components/FriendListItem";
 import { LoginContext } from "../App";
+import style from "../style";
 
 export default function FriendsPage() {
   const { loginState } = useContext(LoginContext);
@@ -56,31 +57,42 @@ export default function FriendsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Friends</h1>
+      <h1 className={`${style.paddingX} text-2xl font-bold my-6`}>Friends</h1>
       <ul>
-        {loading
+        {/* {loading
           ? // Show skeletons while data is being fetched
             Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} />)
           : // Show friends once data is fetched
             friends.map((friend) => (
               <FriendListItem key={friend} name={friend} />
-            ))}
+            ))} */}
         <li>
-          <form onSubmit={addfriend}>
-            <label>
-              Friendname:
+        <FriendListItem name="Matthew"></FriendListItem>
+        <FriendListItem name="Matthew"></FriendListItem>
+        <FriendListItem name="Matthew"></FriendListItem>
+        <FriendListItem name="Matthew"></FriendListItem>
+        <FriendListItem name="Matthew"></FriendListItem>
+        <FriendListItem name="Matthew"></FriendListItem>
+        </li>
+      </ul>
+      <form className={` ${style.paddingX} mt-[2rem] flex flex-col`} onSubmit={addfriend}>
+            <label className={`text-center ${style.paragraph} mb-5`}>
+              Add new friends!
+              </label>
+              <div className={`${style.flexCenter} gap-5`}>
               <input
                 type="text"
                 value={newFriend}
+                placeholder="Search Username..."
                 onChange={(ev) => {
                   setNewFriend(ev.target.value);
                 }}
               />
-            </label>
-            <button type="submit">Add Friend</button>
+            <button type="submit" className={`${style.paragraph} border-solid bg-[#9AD1F0] text-white border-[2px] px-[2rem] py-[0.5rem] cursor-pointer rounded-md`}>
+              Add
+              </button>
+            </div>
           </form>
-        </li>
-      </ul>
     </div>
   );
 }
