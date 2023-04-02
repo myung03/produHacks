@@ -59,21 +59,13 @@ export default function FriendsPage() {
     <div>
       <h1 className={`${style.paddingX} text-2xl font-bold my-6`}>Friends</h1>
       <ul>
-        {/* {loading
+        {loading
           ? // Show skeletons while data is being fetched
             Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} />)
           : // Show friends once data is fetched
             friends.map((friend) => (
               <FriendListItem key={friend} name={friend} />
-            ))} */}
-        <li>
-          <FriendListItem name="MatthewYung"></FriendListItem>
-          <FriendListItem name="Matthew"></FriendListItem>
-          <FriendListItem name="Matthew"></FriendListItem>
-          <FriendListItem name="Matthew"></FriendListItem>
-          <FriendListItem name="Matthew"></FriendListItem>
-          <FriendListItem name="Matthew"></FriendListItem>
-        </li>
+            ))}
       </ul>
       <form
         className={` ${style.paddingX} mt-[2rem] flex flex-col`}

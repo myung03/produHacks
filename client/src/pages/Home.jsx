@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <div>
-      <button onClick={navigateRecordVideo}>Go to Video Screen</button>
+      {/* <button onClick={navigateRecordVideo}>Go to Video Screen</button> */}
       <Popup popupText={"Vlog yourself creating and eating a healthy meal!"} />
     </div>
   );

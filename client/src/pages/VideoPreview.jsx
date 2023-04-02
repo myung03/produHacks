@@ -9,6 +9,7 @@ export default function VideoPreview() {
   const location = useLocation();
   const recordedChunks = location.state.recordedChunks;
   const navigate = useNavigate();
+  const now = Date.now();
 
   const { loginState } = useContext(LoginContext);
 
@@ -18,21 +19,41 @@ export default function VideoPreview() {
   };
 
   //Posting a Post in MongoDB
+  // const createPost = async (ev) => {
+  //   console.log(loginState);
+  //   ev.preventDefault();
+  //   const now = Date.now();
+  //   const fileName = `video-${now}.webm`;
+  //   const response = await fetch("http://localhost:4500/initPost", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       username: loginState,
+  //       video: `videos/${fileName}`,
+  //     }),
+  //     headers: { "Content-Type": "application/json" },
+  //   });
+  //   if (response.status === 200) {
+  //     alert("Post successfuly added");
+  //     navigate("/friendslist");
+  //   } else {
+  //     alert("Post not added");
+  //   }
+  // };
+
+  //Posting a Post in MongoDB
   const createPost = async (ev) => {
     console.log(loginState);
     ev.preventDefault();
-    const now = Date.now();
     const fileName = `video-${now}.webm`;
-    const response = await fetch("http://localhost:4500/initPost", {
-      method: "POST",
-      body: JSON.stringify({
-        username: loginState,
-        video: `videos/${fileName}`,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
+    const response = await fetch(
+      `http://localhost:4500/users/${loginState}/${fileName}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
     if (response.status === 200) {
-      alert("Post successfuly added");
+      alert("Post successfully added");
       navigate("/friendslist");
     } else {
       alert("Post not added");
@@ -41,7 +62,6 @@ export default function VideoPreview() {
 
   const handleUpload = async () => {
     const blob = new Blob(recordedChunks, { type: "video/webm" });
-    const now = Date.now();
     const fileName = `video-${now}.webm`;
     const storageRef = ref(storage, `videos/${fileName}`);
     await uploadBytes(storageRef, blob);
@@ -49,19 +69,42 @@ export default function VideoPreview() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <video
         className="h-full w-full object-cover"
         src={URL.createObjectURL(
           new Blob(recordedChunks, { type: "video/webm" })
         )}
         autoPlay
-        controls
-        width={400}
-        height={400}
+        loop
       ></video>
+      <div
+        style={{
+          position: "absolute",
+          top: "0",
+          left: "0",
+          margin: "20px",
+          padding: "10px 20px",
+          borderRadius: "9999px",
+          background: "#fff",
+        }}
+      >
+        <button onClick={() => navigate("/record")}>🢀</button>
+      </div>
       <button
-        className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-4 bg-white rounded-full shadow-lg focus:outline-none"
+        style={{
+          position: "fixed",
+          bottom: "10%",
+          left: "50%",
+          transform: "translate(-50%, 0)",
+          padding: " 10px",
+          borderRadius: "9999px",
+          background: "#fff",
+          border: "none",
+          color: "#000",
+          fontWeight: "bold",
+          fontSize: "35px",
+        }}
         onClick={handlePost}
       >
         ⚡️

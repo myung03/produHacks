@@ -38,23 +38,6 @@ export default function Camera() {
     setVideoPreview(true);
   }, [mediaRecorderRef, setCapturing, setVideoPreview]);
 
-  const handleDownload = useCallback(() => {
-    if (recordedChunks.length) {
-      const blob = new Blob(recordedChunks, {
-        type: "video/webm",
-      });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      document.body.appendChild(a);
-      a.style = "display: none";
-      a.href = url;
-      a.download = "react-webcam-stream-capture.webm";
-      a.click();
-      window.URL.revokeObjectURL(url);
-      setRecordedChunks([]);
-    }
-  }, [recordedChunks]);
-
   const videoConstraints = {
     facingMode: "user",
   };
@@ -65,9 +48,6 @@ export default function Camera() {
 
   return (
     <div className="flex flex-col h-screen">
-      <button onClick={() => navigate("/home")}>
-        <p>Back</p>
-      </button>
       <Webcam
         audio={false}
         mirrored={true}
@@ -77,25 +57,62 @@ export default function Camera() {
       />
       {capturing ? (
         <button
-          className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-4 bg-white rounded-full shadow-lg focus:outline-none"
+          style={{
+            position: "fixed",
+            bottom: "10%",
+            left: "50%",
+            transform: "translate(-50%, 0)",
+            padding: " 10px",
+            borderRadius: "9999px",
+            background: "#fff",
+            border: "none",
+            color: "#000",
+            fontWeight: "bold",
+            fontSize: "35px",
+          }}
           onClick={handleStopCaptureClick}
         >
           🔴
         </button>
       ) : (
         <button
-          className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-4 bg-white rounded-full shadow-lg focus:outline-none"
+          style={{
+            position: "fixed",
+            bottom: "10%",
+            left: "50%",
+            transform: "translate(-50%, 0)",
+            padding: " 10px",
+            borderRadius: "9999px",
+            background: "#fff",
+            border: "none",
+            color: "#000",
+            fontWeight: "bold",
+            fontSize: "35px",
+          }}
           onClick={handleStartCaptureClick}
         >
           📸
         </button>
       )}
-
-      {videoPreview && (
+      <div
+        style={{
+          position: "absolute",
+          top: "0",
+          left: "0",
+          margin: "20px",
+          padding: "10px 20px",
+          borderRadius: "9999px",
+          background: "#fff",
+        }}
+      >
+        <button onClick={() => navigate("/home")}>🢀</button>
+      </div>
+      {/* Only show the Preview Video button if setCapturing is false and videoPreview is true */}
+      {!capturing && videoPreview && (
         <button
           style={{
             position: "absolute",
-            bottom: "5%",
+            bottom: "20%",
             left: "50%",
             transform: "translate(-50%, 0)",
             padding: "10px 20px",

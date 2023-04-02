@@ -8,10 +8,11 @@ const Popup = () => {
   const [popupText, setPopupText] = useState("");
 
   const handleBackgroundClick = (event) => {
-    if (event.target === event.currentTarget) {
-      console.log("Dismissed dialog");
-      setIsActive(false);
-    }
+    // if (event.target === event.currentTarget) {
+    //   console.log("Dismissed dialog");
+    //   setIsActive(false);
+    // }
+    console.log("Ignore");
   };
 
   const handleClick = () => {

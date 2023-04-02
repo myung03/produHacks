@@ -49,10 +49,17 @@ const FriendListItem = ({ name }) => {
   };
 
   useEffect(() => {
-    getPostByUsername(name).then((result) => {
+    // getPostByUsername(name).then((result) => {
+    //   console.log(result);
+    //   handleLoadVideo(result).then((_) => {
+    //     console.log(videoLink);
+    //   });
+    // });
+    getUser(name).then((result) => {
       console.log(result);
-      handleLoadVideo(result).then((_) => {
-        console.log(videoLink);
+      console.log(result.video);
+      handleLoadVideo(`videos/${result.video}`).then((link) => {
+        console.log(link);
       });
     });
   }, []);
