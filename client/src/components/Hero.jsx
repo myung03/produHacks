@@ -4,7 +4,7 @@ import style from '../style';
 
 const Hero = () => {
   return (
-    <div className="flex align-center justify-center flex-col object-contain">
+    <div className={`${style.paddingX} flex align-center justify-center flex-col gap-3`}>
       <h1 className={`${style.heading2} text-center text-gradient`}>
         Make Exercise Less Boring!
       </h1>
@@ -16,6 +16,10 @@ all while performing tasks for healthy living! </p>
   <div className="left-3 top-32 relative dot-gradient rounded-full w-[20px] h-[20px]"/>
       <img src={heroimg} className="w-[60%] h-[250px] mt-[2rem] mr-[2rem]"/>
       </div>
+
+      <button className={`${style.paragraph}  text-white bg-[#9AD1F0] mt-[2rem] w-[237px] h-[72px] cursor-pointer rounded-md mx-auto `}>
+        Login/Register
+    </button>
     </div>
   )
 }
