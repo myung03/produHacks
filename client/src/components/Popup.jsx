@@ -1,9 +1,12 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { exercises } from "../data";
 
-const Popup = ({ popupText }) => {
+const Popup = () => {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(true);
+  const [popupText, setPopupText] = useState("");
+
   const handleBackgroundClick = (event) => {
     if (event.target === event.currentTarget) {
       console.log("Dismissed dialog");
@@ -18,11 +21,20 @@ const Popup = ({ popupText }) => {
     navigateRecordVideo();
   };
 
-  const navigateRecordVideo = useCallback(() => {
+  const navigateRecordVideo = () => {
     // Replace recordedChunks with an appropriate value, if needed
     const recordedChunks = [];
     navigate("/record", { state: { recordedChunks: recordedChunks } });
-  }, [navigate]);
+  };
+
+  const getRandomExercise = () => {
+    const randomIndex = Math.floor(Math.random() * exercises.length);
+    return exercises[randomIndex];
+  };
+
+  useState(() => {
+    setPopupText(getRandomExercise());
+  }, []);
 
   return isActive ? (
     <div
