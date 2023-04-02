@@ -3,11 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./Schema/User");
 const Posts = require("./Schema/Posts");
-<<<<<<< HEAD
-const PORT = process.env.PORT | 5000;
-=======
-const PORT = process.env.PORT || 5000;
->>>>>>> origin/main
+const PORT = process.env.PORT || 4500;
 const app = express();
 app.use(express.json());
 
@@ -117,6 +113,13 @@ app.post("/users/addfriend", async (req, res) => {
       { $addToSet: { friends: friendUsername } },
       { new: true }
     );
+
+    const userDoc2 = await User.findOneAndUpdate(
+      { friendUsername },
+      { $addToSet: { friends: username } },
+      { new: true }
+    );
+
     if (!userDoc) {
       res.status(404).json({ message: "User not found" });
     } else {

@@ -10,12 +10,8 @@ import VideoPreview from "./pages/VideoPreview";
 
 const router = createBrowserRouter([
   {
-<<<<<<< HEAD
     path: "/login",
-=======
-    path: "/home",
->>>>>>> origin/main
-    element: <LoginPage />,
+    element: <Home />,
   },
   {
     path: "/camera",
@@ -27,7 +23,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Home />,
+    element: <LoginPage />,
   },
 ]);
 
