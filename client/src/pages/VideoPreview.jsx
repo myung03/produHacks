@@ -17,6 +17,7 @@ export default function VideoPreview() {
 
   //Posting a Post in MongoDB
   const createPost = async (ev) => {
+    console.log(loginState);
     ev.preventDefault();
     const now = Date.now();
     const fileName = `video-${now}.webm`;
