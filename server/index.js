@@ -86,3 +86,22 @@ app.post("/login", async (req, res) => {
     res.status(400).json(e);
   }
 });
+
+app.post("/users/addfriend", async (req, res) => {
+  const { friendUsername, username } = req.body;
+  try {
+    const userDoc = await User.findOneAndUpdate(
+      { username },
+      { $addToSet: { friends: friendUsername } },
+      { new: true }
+    );
+    if (!userDoc) {
+      res.status(404).json({ message: "User not found" });
+    } else {
+      res.json(userDoc);
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e);
+  }
+});
