@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import Header from "./components/Header";
 import HeroPage from "./pages/HeroPage";
+import RegisterPage from "./pages/RegisterPage";
 export const LoginContext = createContext();
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
     path: "/friendslist",
     element: <FriendsPage />,
   },
+  { path: "/register", element: <RegisterPage /> },
 ]);
 
 function App() {
@@ -43,6 +45,13 @@ function App() {
 
   return (
     <div>
+      <HeroPage></HeroPage>
+      <LoginContext.Provider value={{ loginState, setLoginState }}>
+        <div className="App">
+          <Header />
+          <RouterProvider router={router} />
+        </div>
+      </LoginContext.Provider>
       <HeroPage></HeroPage>
       <LoginContext.Provider value={{ loginState, setLoginState }}>
         <div className="App">
