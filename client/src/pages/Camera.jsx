@@ -65,8 +65,11 @@ export default function Camera() {
 
   return (
     <div className="flex flex-col h-screen">
-      <button onClick={() => navigate("/home")}>
-        <p>Back</p>
+      <button
+        className="absolute top-10 z-10 text-[30px]"
+        onClick={() => navigate("/home")}
+      >
+        ⇦
       </button>
       <Webcam
         audio={false}
