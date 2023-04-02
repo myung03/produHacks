@@ -90,25 +90,7 @@ export default function Camera() {
           📸
         </button>
       )}
-      {recordedChunks.length > 0 && (
-        <button
-          style={{
-            position: "absolute",
-            bottom: "10%",
-            right: "50%",
-            transform: "translate(50%, 0)",
-            padding: "10px 20px",
-            borderRadius: "9999px",
-            background: "#fff",
-            border: "none",
-            color: "#000",
-            fontWeight: "bold",
-          }}
-          onClick={handleDownload}
-        >
-          Download
-        </button>
-      )}
+
       {videoPreview && (
         <button
           style={{

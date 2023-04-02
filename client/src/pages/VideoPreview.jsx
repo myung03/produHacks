@@ -60,7 +60,12 @@ export default function VideoPreview() {
         width={400}
         height={400}
       ></video>
-      <button onClick={handlePost}>Upload Video</button>
+      <button
+        className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-4 bg-white rounded-full shadow-lg focus:outline-none"
+        onClick={handlePost}
+      >
+        ⚡️
+      </button>
     </div>
   );
 }
