@@ -3,6 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./Schema/User");
 const Posts = require("./Schema/Posts");
+const Post = require("./Schema/Posts");
 const PORT = process.env.PORT || 4500;
 const app = express();
 app.use(express.json());
@@ -34,15 +35,101 @@ mongoose
   )
   .then(console.log("mongodbatlas connected"))
   .catch((err) => console.log(err));
-
-//Port checker
 app.listen(PORT, () => console.log(`Listening at ${PORT}`));
 
 app.get("/", (req, res) => {
-  res.send("Hello, world!");
+  res.send("Produhacks!");
 });
 
-//Register User Functinality creates user, name, password, with no friends
+// GET user by username
+app.get("/users/:username", async (req, res) => {
+  const { username } = req.params;
+  try {
+    const userDoc = await User.findOne({ username });
+    if (!userDoc) {
+      res.status(404).json({ message: "User not found" });
+    } else {
+      res.json(userDoc);
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e);
+  }
+});
+
+//Get all of a user's friends
+app.get("/users/:username/friends", async (req, res) => {
+  const { username } = req.params;
+  try {
+    const userDoc = await User.findOne({ username });
+    if (!userDoc) {
+      res.status(404).json({ message: "User not found" });
+    } else {
+      res.json(userDoc.friends);
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e);
+  }
+});
+
+//Get user's post
+app.get("/posts/:username", async (req, res) => {
+  const { username } = req.params;
+  try {
+    const postDoc = await Post.find({ username });
+    if (!postDoc) {
+      res.status(404).json({ message: "Post not found" });
+    } else {
+      res.json(postDoc);
+    }
+  } catch (e) {
+    console.error(e);
+    res.status(400).json(e);
+  }
+});
+
+//PUT new exercise for the day/login
+app.put("/users/:username/exercise", async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    const userDoc = await User.findOneAndUpdate(
+      { username: username }, // filter for the user you want to update
+      { dailyExercise: getRandomExercise() }, // update the dailyExercise field
+      { new: true } // return the updated document
+    );
+
+    if (!userDoc) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(userDoc);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ message: "Error updating user exercise" });
+  }
+});
+
+const exercises = [
+  "Do 10 jumping jacks while holding your breath",
+  "Crawl backwards for 30 seconds",
+  "Hop on one foot for 20 seconds",
+  "Do a handstand against the wall for 10 seconds",
+  "Spin around in circles 5 times and then do a cartwheel",
+  "Pretend you're a kangaroo and hop around the room for 30 seconds",
+  "Do 10 pushups with your eyes closed",
+  "Sing a song while doing jumping jacks",
+  "Jump up and down like a pogo stick for 20 seconds",
+  "Do the worm for 10 seconds",
+];
+
+//Temporary
+const getRandomExercise = () => {
+  const randomIndex = Math.floor(Math.random() * exercises.length);
+  return exercises[randomIndex];
+};
+
+//POST new user with username, password, and no friends
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
   const friends = [];
@@ -61,6 +148,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
+//POST new video post
 app.post("/initPost", async (req, res) => {
   const { username, video } = req.body;
   const comments = [];
@@ -77,52 +165,7 @@ app.post("/initPost", async (req, res) => {
   }
 });
 
-//get user by username from data base
-
-// Get user by username
-app.get("/users/:username", async (req, res) => {
-  const { username } = req.params;
-  try {
-    const userDoc = await User.findOne({ username });
-    if (!userDoc) {
-      res.status(404).json({ message: "User not found" });
-    } else {
-      res.json(userDoc);
-    }
-  } catch (e) {
-    console.log(e);
-    res.status(400).json(e);
-  }
-});
-
-//create a new post
-app.post("/api/posts", async (req, res) => {
-  const { media, userId } = req.body;
-  try {
-    const post = await Post.create({ media, userId });
-    res.json(post);
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
-//login function
-app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-  try {
-    const userDoc = await User.findOne({ username, password });
-    if (!userDoc) {
-      res.status(401).json({ message: "Invalid credentials" });
-    } else {
-      res.json(userDoc);
-    }
-  } catch (e) {
-    console.log(e);
-    res.status(400).json(e);
-  }
-});
-
+//POST new friend connection for user
 app.post("/users/addfriend", async (req, res) => {
   const { friendUsername, username } = req.body;
   try {
@@ -149,15 +192,15 @@ app.post("/users/addfriend", async (req, res) => {
   }
 });
 
-//get all friends function
-app.get("/users/:username/friends", async (req, res) => {
-  const { username } = req.params;
+//Login
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
   try {
-    const userDoc = await User.findOne({ username });
+    const userDoc = await User.findOne({ username, password });
     if (!userDoc) {
-      res.status(404).json({ message: "User not found" });
+      res.status(401).json({ message: "Invalid credentials" });
     } else {
-      res.json(userDoc.friends);
+      res.json(userDoc);
     }
   } catch (e) {
     console.log(e);

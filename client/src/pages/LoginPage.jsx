@@ -26,12 +26,31 @@ export default function LoginPage() {
         setUserInfo(userInfo);
         setLoginState(userInfo.username);
         alert("successful login");
+        updateExercise(userInfo.username);
         navigateHome();
       });
     } else {
       alert("wrong credentials");
     }
   }
+
+  const updateExercise = async (username) => {
+    try {
+      const response = await fetch(
+        `http://localhost:4500/users/${username}/exercise`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
