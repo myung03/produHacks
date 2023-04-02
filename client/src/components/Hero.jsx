@@ -1,26 +1,30 @@
 import React from 'react'
 import { heroimg } from '../../assets/index';
+import { motion, AnimatePresence } from 'framer-motion';
+import  { slideAnimation } from '../constants';
 import style from '../style';
 
 const Hero = () => {
   return (
+    <AnimatePresence>
     <div className={`${style.paddingX} flex align-center justify-center flex-col gap-3`}>
-      <h1 className={`${style.heading2} text-center text-gradient`}>
+      <h1 className={`${style.heading2} leading-snug text-center text-gradient`}>
         Make Exercise Less Boring!
       </h1>
-      <p className="text-[#827979] text-center mt-[1rem]">Connect with friends like never before,
+      <p className="text-[#827979] text-center mt-[0.25rem]">Connect with friends like never before,
 all while performing tasks for healthy living! </p>
-<div className={`flex justify-end align-center`}>
-  <div className="left-1 top-10 relative dot-gradient rounded-full w-[20px] h-[20px]"/>
-  <div className="right-12 top-40 relative dot-gradient rounded-full w-[20px] h-[20px]"/>
-  <div className="left-3 top-32 relative dot-gradient rounded-full w-[20px] h-[20px]"/>
-      <img src={heroimg} className="w-[60%] h-[250px] mt-[2rem] mr-[2rem]"/>
-      </div>
+<motion.div {...slideAnimation('left')} className={`flex justify-end align-center`}>
+  <motion.div {...slideAnimation('left')} className="left-1 top-10 relative dot-gradient rounded-full w-[20px] h-[20px]"/>
+  <motion.div  {...slideAnimation('left')} className="right-12 top-40 relative dot-gradient rounded-full w-[20px] h-[20px]"/>
+  <motion.div {...slideAnimation('left')} className="left-3 top-32 relative dot-gradient rounded-full w-[20px] h-[20px]"/>
+      <motion.img src={heroimg} className="w-[60%] h-[250px] mt-[2rem] mr-[2rem]"/>
+      </motion.div>
 
       <button className={`${style.paragraph}  text-white bg-[#9AD1F0] mt-[2rem] w-[237px] h-[72px] cursor-pointer rounded-md mx-auto `}>
         Login/Register
     </button>
     </div>
+    </AnimatePresence>
   )
 }
 
