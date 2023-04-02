@@ -15,6 +15,7 @@ export default function VideoPreview() {
     createPost(ev);
   };
 
+  //Posting a Post in MongoDB
   const createPost = async (ev) => {
     ev.preventDefault();
     const now = Date.now();
