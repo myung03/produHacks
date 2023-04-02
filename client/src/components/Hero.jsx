@@ -17,12 +17,16 @@ all while performing tasks for healthy living! </p>
   <motion.div {...slideAnimation('left')} className="left-1 top-10 relative dot-gradient rounded-full w-[20px] h-[20px]"/>
   <motion.div  {...slideAnimation('left')} className="right-12 top-40 relative dot-gradient rounded-full w-[20px] h-[20px]"/>
   <motion.div {...slideAnimation('left')} className="left-3 top-32 relative dot-gradient rounded-full w-[20px] h-[20px]"/>
-      <motion.img src={heroimg} className="w-[60%] h-[250px] mt-[2rem] mr-[2rem]"/>
+      <motion.img src={heroimg} className="w-[55%] h-[225px] mt-[2rem] mr-[2rem]"/>
       </motion.div>
-
+      <div className={`${style.flexCenter} gap-5 pb-5`}>
       <button className={`${style.paragraph}  text-white bg-[#9AD1F0] mt-[2rem] w-[237px] h-[72px] cursor-pointer rounded-md mx-auto `}>
-        Login/Register
+        Login
     </button>
+      <button className={`${style.paragraph} border-solid border-[#9AD1F0] text-[#9AD1F0] border-[2px] mt-[2rem] w-[237px] h-[72px] cursor-pointer rounded-md mx-auto `}>
+        Register
+    </button>
+    </div>
     </div>
     </AnimatePresence>
   )

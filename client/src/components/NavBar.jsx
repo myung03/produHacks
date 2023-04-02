@@ -1,13 +1,13 @@
 import { useState, React} from 'react';
 import style from '../style';
-import { hamb, close } from '../../assets/index';
+import { hamb, close, logo } from '../../assets/index';
 
 const Navbar = () => {
     const [toggle, setToggle ] = useState(false)
   return (
 
-    <div className={`flex justify-between align-middle ${style.paddingX} ${style.paddingY} mb-[20px]`}>
-        <img src={hamb} alt="logo"/>
+    <div className={`flex justify-between align-middle ${style.paddingX} ${style.paddingY} mb-[5px]`}>
+        <img src={logo} alt="logo" className="w-[30px] h-[40px]"/>
 
         <div className="sm:hidden flex flex-1 justify-end items-center">
             <img src={toggle ? close : hamb}
