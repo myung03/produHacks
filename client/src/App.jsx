@@ -3,6 +3,8 @@ import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import Header from "./components/Header";
 import style from "./style";
+import NavBar from "./components/NavBar";
+import Hero from "./components/Hero";
 export const LoginContext = createContext();
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -42,12 +44,16 @@ function App() {
   const [loginState, setLoginState] = useState("");
 
   return (
+    <div>
+    <NavBar></NavBar>
+    <Hero></Hero>
     <LoginContext.Provider value={{ loginState, setLoginState }}>
       <div className="App">
         <Header />
         <RouterProvider router={router} />
       </div>
     </LoginContext.Provider>
+    </div>
   );
 }
 
