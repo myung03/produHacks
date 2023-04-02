@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import Header from "./components/Header";
 import HeroPage from "./pages/HeroPage";
+import RegisterPage from "./pages/RegisterPage"
 export const LoginContext = createContext();
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -14,11 +15,11 @@ import FriendsPage from "./pages/FriendsPage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LoginPage />,
+    element: <RegisterPage />,
   },
   {
     path: "/login",
-    element: <Home />,
+    element: <LoginPage />,
   },
   {
     path: "/record",
@@ -35,6 +36,9 @@ const router = createBrowserRouter([
   {
     path: "/friendslist",
     element: <FriendsPage />,
+  },
+  { path:"/register",
+    element: <Home/>,
   },
 ]);
 
