@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import Header from "./components/Header";
+import HeroPage from "./pages/HeroPage";
 export const LoginContext = createContext();
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -41,12 +42,15 @@ function App() {
   const [loginState, setLoginState] = useState("");
 
   return (
+    <div>
+    <HeroPage></HeroPage>
     <LoginContext.Provider value={{ loginState, setLoginState }}>
       <div className="App">
         <Header />
         <RouterProvider router={router} />
       </div>
     </LoginContext.Provider>
+    </div>
   );
 }
 
