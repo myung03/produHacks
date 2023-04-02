@@ -14,11 +14,11 @@ import FriendsPage from "./pages/FriendsPage";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <LoginPage />,
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: <Home />,
   },
   {
     path: "/record",
@@ -43,7 +43,6 @@ function App() {
 
   return (
     <div>
-    <HeroPage></HeroPage>
     <LoginContext.Provider value={{ loginState, setLoginState }}>
       <div className="App">
         <Header />
