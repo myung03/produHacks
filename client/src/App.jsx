@@ -38,7 +38,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const [loginState, setLoginState] = useState("NicholasFong");
+  const [loginState, setLoginState] = useState("");
 
   return (
     <LoginContext.Provider value={{ loginState, setLoginState }}>

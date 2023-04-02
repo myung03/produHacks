@@ -46,13 +46,31 @@ app.get("/", (req, res) => {
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
   const friends = [];
+  const videos = [];
   try {
     const userDoc = await User.create({
       username,
       password,
       friends,
+      videos,
     });
     res.json(userDoc);
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e);
+  }
+});
+
+app.post("/initPost", async (req, res) => {
+  const { username, video } = req.body;
+  const comments = [];
+  try {
+    const userPosts = await Posts.create({
+      video,
+      username,
+      comments,
+    });
+    res.json(userPosts);
   } catch (e) {
     console.log(e);
     res.status(400).json(e);
