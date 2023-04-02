@@ -3,7 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./Schema/User");
 const Posts = require("./Schema/Posts");
-const PORT = process.env.PORT | 6000;
+const PORT = process.env.PORT | 5000;
 const app = express();
 app.use(express.json());
 
@@ -11,8 +11,16 @@ app.use(express.json());
 // mongodb password: Produhacks2023
 // mongodb connection link: mongodb+srv://nicholasfong1120:Produhacks2023@user.ld8woyw.mongodb.net/?retryWrites=true&w=majority
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 //Initilization
-app.listen(4500);
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 mongoose
   .connect(
