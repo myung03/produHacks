@@ -52,12 +52,14 @@ const FriendListItem = ({ name }) => {
   }
 
   return (
-    <li className="flex items-center py-4 px-6 hover:bg-gray-100">
-      <div className="flex items-center justify-center h-10 w-10 bg-orange-500 rounded-full">
-        <span className="text-white text-sm font-medium">{name[0]}</span>
+    <li className="flex items-center py-4 px-6 hover:bg-gray-100 hover:text-[24px]">
+      <div className="flex items-center justify-center h-10 w-10 bg-[#9AD1F0] rounded-full">
+        <span className="text-white text-sm font-medium">{name.charAt(0)}</span>
       </div>
       <div className="ml-3">
-        <p className="text-base font-medium text-gray-800">{name}</p>
+        <p className="text-base font-medium text-gray-800">{name 
+        //removed [0] after name as it was returned undefined
+      }</p>
       </div>
       <button
         className="flex-shrink-0 ml-auto bg-transparent text-gray-600 hover:text-gray-800 border-transparent border-4 focus:outline-none focus:border-gray-800 focus:text-gray-800 rounded-full p-2 transition-colors"
