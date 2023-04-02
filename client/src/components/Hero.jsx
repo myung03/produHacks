@@ -9,7 +9,7 @@ const Hero = () => {
     <AnimatePresence>
     <div className={`${style.paddingX} flex align-center justify-center flex-col gap-3`}>
       <h1 className={`${style.heading2} leading-snug text-center text-gradient`}>
-        Make Exercise Less Boring!
+        Build habits. Build community.
       </h1>
       <p className="text-[#827979] text-center mt-[0.25rem]">Connect with friends like never before,
 all while performing tasks for healthy living! </p>

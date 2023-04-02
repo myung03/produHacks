@@ -15,6 +15,9 @@ import FriendsPage from "./pages/FriendsPage";
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <HeroPage />,
+  }, {
+    path: "/home",
     element: <Home />,
   },
   {
@@ -47,7 +50,6 @@ function App() {
 
   return (
     <div>
-      <HeroPage></HeroPage>
     <LoginContext.Provider value={{ loginState, setLoginState }}>
       <div className="App">
         <Header />

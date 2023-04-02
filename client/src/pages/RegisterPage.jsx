@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import style from "../style";
-import { regis } from "../../assets/index"
+import { regis, logo } from "../../assets/index"
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
@@ -23,7 +23,10 @@ export default function RegisterPage() {
 
   return (
     <div className={`${style.flexCenter} m-[1rem] mt-[20%] ${style.paragraph} flex-col gap-10`}>
-    <img src={regis} alt="login graphic" className="absolute bottom-24 left-20"></img>
+      <button>
+        <img src={logo} alt="logo" className="w-[30px] h-[40px]"/>
+      </button>
+    <img src={regis} alt="login graphic" className="absolute bottom-10 left-20"></img>
     <h1 className={`${style.heading2} text-center text-gradient`}>Register</h1>
     <form className={`${style.flexCenter} rounded-md p-10 flex-col glassmorphism text-[24px]`}onSubmit={register}>
       <label className="text-gray-500 mb-5">

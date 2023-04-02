@@ -3,7 +3,7 @@ import { useState, useContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../App";
 import style from "../style";
-import { prompt } from "../../assets/index"
+import { prompt, logo } from "../../assets/index"
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +36,10 @@ export default function LoginPage() {
 
   return (
     <div className={`${style.flexCenter} m-[1rem] mt-[20%] ${style.paragraph} flex-col gap-10`}>
-      <img src={prompt} alt="login graphic" className="absolute bottom-24"></img>
+      <button>
+        <img src={logo} alt="logo" className="w-[30px] h-[40px]"/>
+      </button>
+      <img src={prompt} alt="login graphic" className="absolute bottom-10"></img>
       <h1 className={`${style.heading2} text-center text-gradient`}>Login</h1>
       <form className={`${style.flexCenter} rounded-md p-10 flex-col glassmorphism text-[24px]`}onSubmit={login}>
         <label className="text-gray-500 mb-5">
